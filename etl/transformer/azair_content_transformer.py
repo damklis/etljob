@@ -6,12 +6,28 @@ from bs4 import BeautifulSoup
 import lxml
 
 
+@dataclass(frozen=True)
+class FlightRow:
 
+    uuid: str
+    direction: str
+    day: str
+    flight_date: str
+    start: str
+    departure: str
+    target: str
+    arrival: str
+    duration: str
+    change: str
+    price: str
+    date: str = str(date.today())
 
 class AZAirContentTransformer:
 
-    parser = "lxml"
     _routes = ["caption tam", "caption sem"]
+
+    def __init__(self, parser):
+        self.parser = parser
 
     def transform_raw_content(self, raw_content):
 
@@ -33,9 +49,7 @@ class AZAirContentTransformer:
         Returns list of HTML result's class that follow provided name.
         """
         return (
-            res for res in bs_object.find_all(
-                class_="result"
-            )
+            res for res in bs_object.find_all(class_="result")
         )
 
     def map_row(self, ptag, _id):
@@ -71,7 +85,7 @@ class AZAirContentTransformer:
         Returns list of tags that follow provided condition.
         """
         return (
-            tag for tag in result.find_all("p")
+            tag for tag in result.find_all("p") 
             if "caption " in str(tag)
         )
 
@@ -81,26 +95,11 @@ class AZAirContentTransformer:
         about each flight. Every object in data list represents 
         row in database. 
         """
-        for res in self.extract_results(bs_object):
+        for result in self.extract_results(bs_object):
             uuid = self._generate_uuid()
-            for ptag in self.extract_ptags(res):    
+            for ptag in self.extract_ptags(result):    
                 yield self.map_row(
                     ptag,
                     uuid
                 )
 
-
-@dataclass(frozen=True)
-class FlightRow:
-    uuid: str
-    direction: str
-    day: str
-    flight_date: str
-    start: str
-    departure: str
-    target: str
-    arrival: str
-    duration: str
-    change: str
-    price: str
-    date: str = str(date.today())

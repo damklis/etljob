@@ -1,4 +1,4 @@
-from etl.config import ETLConfig as cnf
+from etl.config import ETLConfig as cfg
 from etl.extractor.azair_content_parser import AZAirContentParser
 from etl.transformer.azair_content_transformer import AZAirContentTransformer
 
@@ -23,9 +23,8 @@ class ETLJob:
 
 
 def run_etl_job():
-    extractor = AZAirContentParser(cnf.URL, cnf.PARAMS)
-
-    transformer = AZAirContentTransformer()
+    extractor = AZAirContentParser(cfg.URL, cfg.PARAMS)
+    transformer = AZAirContentTransformer(cfg.PARSER)
     loader = None
     
     etl = ETLJob(

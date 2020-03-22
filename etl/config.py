@@ -7,6 +7,8 @@ N_DAYS_LATER = datetime.date(2020, 4, 4) + timedelta(days=30)
 
 class ETLConfig:
 
+    PARSER = "lxml"
+
     _departure = TODAY.strftime("%d.%m.%Y")
     _arrival = N_DAYS_LATER.strftime("%d.%m.%Y")
 
