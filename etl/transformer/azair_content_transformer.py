@@ -3,7 +3,6 @@ from datetime import date
 from dataclasses import dataclass
 import requests
 from bs4 import BeautifulSoup
-import lxml
 
 
 @dataclass(frozen=True)
@@ -22,12 +21,23 @@ class FlightRow:
     price: str
     date: str = str(date.today())
 
-class AZAirContentTransformer:
 
+class AZAirContentTransformer:
 
     def __init__(self, parser):
         self.parser = parser
         self.row_formatter = self.RowFromatter()
+
+    def transform_raw_content(self, raw_content):
+        """
+        Returns dictionary with flight data as row
+        """
+        bs_object = BeautifulSoup(raw_content, self.parser)
+        
+        return (
+            flight for flight 
+            in self.row_formatter.create_row(bs_object)
+        )
 
     class RowFromatter:
 
@@ -35,21 +45,22 @@ class AZAirContentTransformer:
 
         def generate_uuid(self):
             """
-            Returns unique flight identification number.
+            Returns unique flight identification number
             """
             return str(uuid.uuid4()) 
         
-        def extract_results(self, bs_object):
+        def extract_result_classes(self, bs_object):
             """
-            Returns list of HTML result's class that follow provided name.
+            Returns list of HTML result's class that follow provided name
             """
             return (
-                res for res in bs_object.find_all(class_="result")
+                result for result
+                in bs_object.find_all(class_="result")
             )
 
         def map_row(self, ptag, _id):
             """
-            Returns dictionary with flight data as row.
+            Returns dictionary with flight data as row
             """
             day, flight_date = ptag.find("span", "date").text.split(" ")
             _from = ptag.find("span", "from").text.strip()
@@ -77,38 +88,23 @@ class AZAirContentTransformer:
 
         def extract_ptags(self, result):
             """
-            Returns list of tags that follow provided condition.
+            Returns list of tags that follow provided condition
             """
             return (
                 tag for tag in result.find_all("p") 
                 if "caption " in str(tag)
             )
 
-        def create_flight_row(self, bs_object):
+        def create_row(self, bs_object):
             """
             Returns JSON object containing detailed information
             about each flight. Every object in data list represents 
-            row in database. 
+            row in database
             """
-            for result in self.extract_results(bs_object):
+            for result in self.extract_result_classes(bs_object):
                 uuid = self.generate_uuid()
                 for ptag in self.extract_ptags(result):    
                     yield self.map_row(
                         ptag,
                         uuid
                     )
-        
-
-    def transform_raw_content(self, raw_content):
-
-        bs_object = BeautifulSoup(raw_content, self.parser)
-        
-        return (
-            row for row in self.row_formatter.create_flight_row(bs_object)
-        )
-
-
-    
-
-    
-

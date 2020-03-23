@@ -1,9 +1,7 @@
 import re
 from contextlib import closing
 from requests import get
-from requests.exceptions import (
-    ConnectionError, HTTPError
-)
+from requests.exceptions import ConnectionError, HTTPError
 
 
 class AZAirContentParser:

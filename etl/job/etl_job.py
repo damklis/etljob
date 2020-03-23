@@ -1,7 +1,7 @@
 from etl.job.config import ETLConfig as cfg
 from etl.extractor.azair_content_parser import AZAirContentParser
 from etl.transformer.azair_content_transformer import AZAirContentTransformer
-
+from etl.loader.azair_content_loader import AZAirContentLoader
 
 class ETLJob:
 
@@ -15,17 +15,14 @@ class ETLJob:
         content = self.transformer.transform_raw_content(
             raw_content=raw_content
         )
-
-        for i in content:
-            print(i)
-        #self.loader.load_data(transformed_data)
+        self.loader.load_content(content)
 
 
 
 def run_etl_job():
     extractor = AZAirContentParser(cfg.URL, cfg.PARAMS)
     transformer = AZAirContentTransformer(cfg.PARSER)
-    loader = None
+    loader = AZAirContentLoader()
     
     etl = ETLJob(
         extractor=extractor,
