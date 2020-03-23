@@ -1,4 +1,4 @@
-from etl.config import ETLConfig as cfg
+from etl.job.config import ETLConfig as cfg
 from etl.extractor.azair_content_parser import AZAirContentParser
 from etl.transformer.azair_content_transformer import AZAirContentTransformer
 
