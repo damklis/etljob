@@ -1,18 +1,16 @@
 from dataclasses import asdict
-from etl.loader.db.flight import Flight
-from etl.loader.db.base import (
-    Session, engine, Base
+from etl.loader.db import (
+    engine,
+    Session,
+    Base,
+    Flight
 )
-
-
-Base.metadata.create_all(engine)
 
 
 class AZAirContentLoader:
 
     def __init__(self):
         self.session = Session()
-
 
     def load_content(self, rows):
         for row in rows:
@@ -22,3 +20,4 @@ class AZAirContentLoader:
                 )
             )
             self.session.commit()
+        self.session.close()

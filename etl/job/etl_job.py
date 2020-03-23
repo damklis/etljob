@@ -3,6 +3,7 @@ from etl.extractor.azair_content_parser import AZAirContentParser
 from etl.transformer.azair_content_transformer import AZAirContentTransformer
 from etl.loader.azair_content_loader import AZAirContentLoader
 
+
 class ETLJob:
 
     def __init__(self, extractor, transformer, loader):
@@ -18,8 +19,8 @@ class ETLJob:
         self.loader.load_content(content)
 
 
-
 def run_etl_job():
+
     extractor = AZAirContentParser(cfg.URL, cfg.PARAMS)
     transformer = AZAirContentTransformer(cfg.PARSER)
     loader = AZAirContentLoader()
@@ -31,3 +32,4 @@ def run_etl_job():
     )
 
     etl.run()
+    print("Status:")
