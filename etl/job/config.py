@@ -33,3 +33,5 @@ class ETLConfig:
         "maxChng" : 1,
         "isOneway" : "return"
     }
+
+    CHUNK_SIZE = 10
