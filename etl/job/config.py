@@ -1,4 +1,3 @@
-import datetime
 from datetime import timedelta, date
 
 
@@ -6,8 +5,10 @@ class ETLConfig:
 
     PARSER = "lxml"
 
+    TIMEDELTA = 30
+
     _departure = date.today().strftime("%d.%m.%Y")
-    _arrival = (date.today() + timedelta(days=30)).strftime("%d.%m.%Y")
+    _arrival = (date.today() + timedelta(days=TIMEDELTA)).strftime("%d.%m.%Y")
 
     URL = "http://www.azair.com/azfin.php"
     
@@ -34,4 +35,6 @@ class ETLConfig:
         "isOneway" : "return"
     }
 
-    CHUNK_SIZE = 10
+    CHUNK_SIZE = 20
+
+    DB_NAME = "flights_db"

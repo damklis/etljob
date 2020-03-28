@@ -35,8 +35,7 @@ class AZAirContentTransformer:
         bs_object = BeautifulSoup(raw_content, self.parser)
         
         return (
-            flight for flight 
-            in self.row_formatter.create_row(bs_object)
+            row for row in self.row_formatter.create_row(bs_object)
         )
 
     class RowFromatter:
