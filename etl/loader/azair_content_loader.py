@@ -5,7 +5,7 @@ from etl.loader.db import (engine, Session, Base, Flight)
 
 class AZAirContentLoader:
 
-    def __init__(self, chunk_size):
+    def __init__(self, chunk_size=10):
         self.session = Session()
         self.chunk_size = chunk_size
 
@@ -20,7 +20,7 @@ class AZAirContentLoader:
         self.session.close()
 
 
-def generate_chunk(content, chunk_size=10):
+def generate_chunk(content, chunk_size):
     
     iterable_content = iter(content)
     while True:
