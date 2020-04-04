@@ -30,7 +30,7 @@ class AZAirContentTransformer:
 
     def transform_raw_content(self, raw_content):
         """
-        Returns dictionary with flight data as row
+        Returns dictionary with provided data as row
         """
         bs_object = BeautifulSoup(raw_content, self.parser)
         
