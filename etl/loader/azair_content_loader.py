@@ -1,5 +1,5 @@
-from itertools import islice
 from dataclasses import asdict
+from etl.loader.chunk_generator import generate_chunk
 from etl.loader.db import (
     engine, Session, Base, Flight
 )
@@ -20,13 +20,3 @@ class AZAirContentLoader:
             self.session.commit()
         
         self.session.close()
-
-
-def generate_chunk(content, chunk_size):
-    
-    iterable_content = iter(content)
-    while True:
-        batch = list(islice(iterable_content, chunk_size))
-        if not batch:
-            return
-        yield batch

@@ -1,8 +1,8 @@
-import pytest
-import requests
 from datetime import date
 from dataclasses import asdict
 from pkg_resources import resource_string
+import pytest
+import requests
 from etl.transformer.azair_content_transformer import (
     AZAirContentTransformer, FlightRow
 )
