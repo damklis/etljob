@@ -13,7 +13,3 @@ engine = create_engine(db_path)
 Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
-
-
-if __name__ == "__main__":
-    pass
