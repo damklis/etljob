@@ -1,4 +1,6 @@
-from sqlalchemy import Column, String, Integer, Date
+from sqlalchemy import (
+    Column, String, Integer, Date
+)
 from etl.loader.db.base import Base
 
 

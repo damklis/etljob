@@ -4,8 +4,7 @@ from datetime import date
 from dataclasses import asdict
 from pkg_resources import resource_string
 from etl.transformer.azair_content_transformer import (
-    AZAirContentTransformer,
-    FlightRow
+    AZAirContentTransformer, FlightRow
 )
 
 

@@ -1,13 +1,15 @@
 from itertools import islice
 from dataclasses import asdict
-from etl.loader.db import (engine, Session, Base, Flight)
+from etl.loader.db import (
+    engine, Session, Base, Flight
+)
 
 
 class AZAirContentLoader:
 
     def __init__(self, chunk_size=10):
-        self.session = Session()
         self.chunk_size = chunk_size
+        self.session = Session()
 
     def load_content(self, content):
 

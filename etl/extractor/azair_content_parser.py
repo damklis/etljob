@@ -1,7 +1,9 @@
 import re
 from contextlib import closing
 from requests import get
-from requests.exceptions import ConnectionError, HTTPError
+from requests.exceptions import (
+    ConnectionError, HTTPError
+)
 
 
 class AZAirContentParser:
@@ -12,9 +14,9 @@ class AZAirContentParser:
 
     def extract_content(self):
         """
-        Attempts to get the content at `url` by making an HTTP GET request.
+        Attempts to get the content at `url` by making an HTTP GET request
         If the content-type of response is some kind of HTML/XML, return the
-        text content, otherwise return None.
+        text content, otherwise return None
         """
         try:
             with closing(get(self.url, self.params, stream=True)) as resp:
@@ -24,15 +26,15 @@ class AZAirContentParser:
                     return None
 
         except ConnectionError as con_err:
-            print(f"Connection error occurred. More info: {con_err}.")
+            print(f"Connection error occurred. More info: {con_err}")
 
         except HTTPError as http_err:
-            print(f"HTTP error occurred. More info: {http_err}.")
+            print(f"HTTP error occurred. More info: {http_err}")
 
     @staticmethod
     def is_good_response(response):
         """
-        Returns True if the response seems to be HTML, False otherwise.
+        Returns True if the response seems to be HTML, False otherwise
         """
         content_type = response.headers['Content-Type'].lower()
         return (
