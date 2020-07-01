@@ -7,19 +7,7 @@ from etl.transformer.azair_content_transformer import (
     AZAirContentTransformer, FlightRow
 )
 
-
-@pytest.fixture()
-def transformer():
-    parser = "lxml"
-    yield AZAirContentTransformer(parser)
-
-
-@pytest.fixture()
-def example_raw_content():
-    yield resource_string(
-        __name__,
-        "test_data/raw_content.txt"
-    )
+from .fixtures import transformer, example_raw_content
 
 
 def test_raw_content_type(transformer, example_raw_content):

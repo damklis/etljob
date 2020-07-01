@@ -2,18 +2,7 @@ import pytest
 import requests
 from etl.extractor.azair_content_parser import AZAirContentParser
 
-
-@pytest.fixture()
-def azair_parser():
-    url = "http://www.azair.com/azfin.php"
-    params = {
-        "tp" : 0,
-        "searchtype" : "flexi"
-    }
-    yield AZAirContentParser(
-        url=url,
-        params=params
-    )
+from .fixtures import azair_parser
 
 
 def test_extract_content(azair_parser):
