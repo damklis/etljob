@@ -1,0 +1,9 @@
+/images
+README.md
+LICENSE
+*.sqlite*
+*.sh
+.vscode
+__pycache__
+.idea
+.pytest_cache
