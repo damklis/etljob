@@ -6,24 +6,24 @@ This example ETL jobs scrapes data from `azair.com`, formulates records and save
 
 ## Requirements
 
-1. Python 3.7+ - [link](https://www.python.org/)
+1. [Docker](https://www.docker.com/)
 
 
 ## Run ETL job
-
-1. Create virtual enviroment - [link](https://docs.python.org/3/library/venv.html).
-
-2. Run below command:
+You can use optional parameter with tag version. (eg. `v0.1`)
+1. Build docker image
 ```sh
-pip install -r requirements.txt
+./build.sh
 ```
-3. Run job:
+
+2. Run docker image
 ```sh
-./run_etl_job.sh
+./run.sh
 ```
+
 
 ## Run tests
 
 ```sh
-./run_unit_tests.sh
+pytest --show-capture=no 
 ```

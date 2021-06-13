@@ -1,5 +1,9 @@
 /images
 README.md
 LICENSE
-*.sqlite3
+*.sqlite*
 *.sh
+.vscode
+__pycache__
+.idea
+.pytest_cache
