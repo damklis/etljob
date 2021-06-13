@@ -20,13 +20,11 @@ class ETLJob:
             return "FAILED"
 
     def _execute_pipeline(self):
-        #EXTRACT
         raw_content = self.extractor.extract_content()
-        #TRANSFORM
+
         content = self.transformer.transform_raw_content(
             raw_content=raw_content
         )
-        #LOAD
         self.loader.load_content(
             content=content
         )
@@ -44,7 +42,7 @@ def time_func(function):
         print(f"Execution time: {execution_time:.2f} s")
 
         return result
-    
+
     return wrapper
 
 
@@ -54,7 +52,7 @@ def run_etl_job():
     extractor = AZAirContentParser(cfg.URL, cfg.PARAMS)
     transformer = AZAirContentTransformer(cfg.PARSER)
     loader = AZAirContentLoader(cfg.CHUNK_SIZE)
-    
+
     etl = ETLJob(
         extractor=extractor,
         transformer=transformer,
