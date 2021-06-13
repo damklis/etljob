@@ -1,12 +1,11 @@
 from time import time
-from etl.job.config import ETLConfig as cfg
+from etl.config import ETLConfig as cfg
 from etl.extractor.azair_content_parser import AZAirContentParser
 from etl.transformer.azair_content_transformer import AZAirContentTransformer
 from etl.loader.azair_content_loader import AZAirContentLoader
 
 
 class ETLJob:
-
     def __init__(self, extractor, transformer, loader):
         self.extractor = extractor
         self.transformer = transformer

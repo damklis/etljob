@@ -1,7 +1,12 @@
+import os
 from datetime import timedelta, date
 
 
 class ETLConfig:
+
+    PROJECT_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+
+    DATA_DIR = os.path.join(PROJECT_DIR, "data")
 
     PARSER = "lxml"
 
