@@ -1,7 +1,6 @@
 import uuid
 from datetime import date
 from dataclasses import dataclass
-import requests
 from bs4 import BeautifulSoup
 
 
@@ -19,11 +18,10 @@ class FlightRow:
     duration: str
     change: str
     price: str
-    date: str = str(date.today())
+    created_at: str = str(date.today())
 
 
 class AZAirContentTransformer:
-
     def __init__(self, parser):
         self.parser = parser
         self.row_formatter = self.RowFromatter()
@@ -33,9 +31,10 @@ class AZAirContentTransformer:
         Returns dictionary with provided data as row
         """
         bs_object = BeautifulSoup(raw_content, self.parser)
-        
+
         return (
-            row for row in self.row_formatter.create_row(bs_object)
+            row for row
+            in self.row_formatter.create_row(bs_object)
         )
 
     class RowFromatter:
@@ -46,8 +45,8 @@ class AZAirContentTransformer:
             """
             Returns unique flight identification number
             """
-            return str(uuid.uuid4()) 
-        
+            return str(uuid.uuid4())
+
         def extract_result_classes(self, bs_object):
             """
             Returns list of HTML result's class that follow provided name
@@ -90,20 +89,19 @@ class AZAirContentTransformer:
             Returns list of tags that follow provided condition
             """
             return (
-                tag for tag in result.find_all("p") 
+                tag for tag in result.find_all("p")
                 if "caption " in str(tag)
             )
 
         def create_row(self, bs_object):
             """
             Returns JSON object containing detailed information
-            about each flight. Every object in data list represents 
+            about each flight. Every object in data list represents
             row in database
             """
             for result in self.extract_result_classes(bs_object):
                 uuid = self.generate_uuid()
-                for ptag in self.extract_ptags(result):    
+                for ptag in self.extract_ptags(result):
                     yield self.map_row(
-                        ptag,
-                        uuid
+                        ptag, uuid
                     )

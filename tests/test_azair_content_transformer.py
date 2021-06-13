@@ -21,11 +21,11 @@ def test_raw_content_type(transformer, example_raw_content):
 
 
 def test_raw_content_keys(transformer, example_raw_content):
-    
+
     expected = [
         "uuid", "direction", "day", "flight_date", "start",
         "departure", "target","arrival", "duration",
-        "change", "price", "date"
+        "change", "price", "created_at"
     ]
 
     content = transformer.transform_raw_content(example_raw_content)
@@ -39,6 +39,6 @@ def test_raw_content_date(transformer, example_raw_content):
     expected = str(date.today())
 
     content = transformer.transform_raw_content(example_raw_content)
-    result = asdict(next(content)).get("date")
+    result = asdict(next(content)).get("created_at")
 
     assert result == expected
