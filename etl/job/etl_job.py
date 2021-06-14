@@ -25,9 +25,7 @@ class ETLJob:
         content = self.transformer.transform_raw_content(
             raw_content=raw_content
         )
-        self.loader.load_content(
-            content=content
-        )
+        self.loader.load_content(content=content)
 
 
 def time_func(function):

@@ -2,12 +2,12 @@ import re
 from contextlib import closing
 from requests import get
 from requests.exceptions import (
-    ConnectionError, HTTPError
+    ConnectionError,
+    HTTPError
 )
 
 
 class AZAirContentParser:
-
     def __init__(self, url, params):
         self.url = url
         self.params = params
